@@ -46,6 +46,8 @@ class VenueController extends GetxController {
 
       final List data = response.data['slots'];
 
+      print("aaaaaaaaa $data");
+
       slots.value = data.map((e) => SlotModel.fromJson(e)).toList();
     } finally {
       isLoading.value = false;

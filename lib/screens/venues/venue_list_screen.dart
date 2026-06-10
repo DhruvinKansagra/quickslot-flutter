@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quickslot_app/controllers/venue_controller.dart';
+import 'package:quickslot_app/screens/bookings/my_bookings_screen.dart';
 import 'package:quickslot_app/screens/venue_detail/venue_detail_screen.dart';
 
 class VenueListScreen extends StatelessWidget {
@@ -11,14 +12,25 @@ class VenueListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Venues")),
+      appBar: AppBar(
+        title: const Text("Venues"),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.bookmark),
+            onPressed: () {
+              Get.to(() => const MyBookingsScreen());
+            },
+          ),
+        ],
+      ),
+
       body: Obx(() {
         if (controller.isLoading.value) {
           return const Center(child: CircularProgressIndicator());
         }
 
-        if (controller.venues.isEmpty) {
-          return const Center(child: Text("No Venues Found"));
+        if (controller.venues.isEmpty && !controller.isLoading.value) {
+          return const Center(child: Text("No Venues Available"));
         }
 
         return ListView.builder(
