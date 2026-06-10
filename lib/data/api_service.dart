@@ -12,4 +12,11 @@ class ApiService {
   Future<Response> getVenues() async {
     return await dio.get('/venues');
   }
+
+  Future<Response> getSlots(String venueId, String date) async {
+    return await dio.get(
+      '/venues/$venueId/slots',
+      queryParameters: {'date': date},
+    );
+  }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quickslot_app/controllers/venue_controller.dart';
+import 'package:quickslot_app/screens/venue_detail/venue_detail_screen.dart';
 
 class VenueListScreen extends StatelessWidget {
   VenueListScreen({super.key});
@@ -22,14 +23,20 @@ class VenueListScreen extends StatelessWidget {
 
         return ListView.builder(
           itemCount: controller.venues.length,
+
           itemBuilder: (_, index) {
             final venue = controller.venues[index];
 
-            return Card(
-              child: ListTile(
-                title: Text(venue.name),
-                subtitle: Text(venue.location),
-                trailing: const Icon(Icons.arrow_forward_ios),
+            return GestureDetector(
+              onTap: () {
+                Get.to(() => VenueDetailScreen(venue: venue));
+              },
+              child: Card(
+                child: ListTile(
+                  title: Text(venue.name),
+                  subtitle: Text(venue.location),
+                  trailing: const Icon(Icons.arrow_forward_ios),
+                ),
               ),
             );
           },
